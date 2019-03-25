@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'auto.apps.AutoConfig',
+    'auto.apps.AutoConfig'
 ]
 
 MIDDLEWARE = [
@@ -77,8 +77,13 @@ WSGI_APPLICATION = 'CSC_411_Automotive_Company.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'mysql.connector.django',
+        'NAME': 'Automotive',
+        'USER': 'autoAdmin',
+        'PASSWORD': 'utuFJmM2b9SB',
+        'HOST': '127.0.0.1',
+        'PORT': '3306'
     }
 }
 
@@ -120,3 +125,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]

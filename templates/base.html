@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Automotive Company</title>
+
+    {% load static %}
+    <!-- Load custom style sheet to override bootstrap-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%} " />
+
+    <!--Bootstrap style sheet -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!--JavaScript includes for jQuery and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+
+    <!--Begin Navbar Element -->
+
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+      <!-- Navbar content -->
+        <!--Logo -->
+        <a class="navbar-brand" href="#">
+            <!--<img src="/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="Logo">-->
+            Automotive Company
+          </a>
+        <!--Toggler button used for mobile devices -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menu Items -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item active mr-auto mt-2 mt-lg-0">
+                <a class="nav-link" href="#">Select Vehicle <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item active mr-auto mt-2 mt-lg-0">
+                <a class="nav-link" href="#">Shopping Tools</a>
+              </li>
+              <li class="nav-item active mr-auto mt-2 mt-lg-0">
+                <a class="nav-link" href="#">Find a Dealer</a>
+              </li>
+              <li class="nav-item active mr-auto mt-2 mt-lg-0">
+                <a class="nav-link" href="#">Price</a>
+              </li>
+            </ul>
+        </div>
+
+        <!--Search bar -->
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-light my-2 my-sm-0" type="submit">
+            <img src="/static/images/search-icon.png" alt="Magnifying Glass Icon" style="width: 25px; height: 25px;">
+          </button>
+        </form>
+
+
+    </nav>
+
+    <!-- content -->
+    <div class="container shadow p-3 mb-5 bg-white rounded" id="autoMainContent">
+                {% block content %}
+                    This is a fallback text.
+                {% endblock %}
+    </div>
+</body>
+</html>
