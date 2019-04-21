@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Automotive Company</title>
+    <title>Auto</title>
 
     {% load static %}
     <!-- Load custom style sheet to override bootstrap-->
@@ -10,6 +10,9 @@
 
     <!--Bootstrap style sheet -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Set the Favicon -->
+    <link rel="icon" type="image/png" href="{%  static 'images/favicon.png' %}">
 
     <!--JavaScript includes for jQuery and Popper.js -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -25,14 +28,11 @@
     <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
       <!-- Navbar content -->
         <!--Logo -->
-        <a class="navbar-brand" href="#">
-            <!--<img src="/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="Logo">-->
-            Automotive Company
+        <a class="navbar-brand" href="/">
+            <img src="{% static 'images/favicon-32x32.png' %}" width="30" height="30" class="d-inline-block align-top" alt="Logo">
+            Auto
           </a>
-        <!--Toggler button used for mobile devices -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+
 
         <!-- Menu Items -->
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -60,7 +60,10 @@
           </button>
         </form>
 
-
+        <!--Toggler button used for mobile devices -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </nav>
 
     <!-- content -->
