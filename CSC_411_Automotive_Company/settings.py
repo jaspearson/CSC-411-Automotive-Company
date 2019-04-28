@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from CSC_411_Automotive_Company import secret_settings
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '_070c+fm@k*kr*nzo6ic+vr!)lmnfarwo_(86cqd13sx0(%6dp'
+SECRET_KEY = secret_settings.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -75,17 +76,8 @@ WSGI_APPLICATION = 'CSC_411_Automotive_Company.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        # 'ENGINE': 'django.db.backends.mysql',
-        'ENGINE': 'mysql.connector.django',
-        'NAME': 'Automotive',
-        'USER': 'autoAdmin',
-        'PASSWORD': 'utuFJmM2b9SB',
-        'HOST': '127.0.0.1',
-        'PORT': '3306'
-    }
-}
+DATABASES = secret_settings.DATABASES
+
 # Commit1 Test
 
 
