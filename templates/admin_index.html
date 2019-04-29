@@ -1,0 +1,9 @@
+{% extends 'admin_base.html' %}
+{% block entry %}
+
+    {% block reentry %}
+        <p>This is the admin index page.</p>
+    {% endblock %}
+
+    {% csrf_token %}
+{% endblock %}

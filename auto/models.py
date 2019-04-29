@@ -17,7 +17,7 @@ class Customer(models.Model):
 	phone = models.CharField(max_length=15)
 	gender = models.CharField(max_length=1)
 	annual_income = models.IntegerField()
-	created = models.DateTimeField(auto_now_add=True)
+	#created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 
 

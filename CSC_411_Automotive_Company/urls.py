@@ -22,6 +22,9 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url(r'^auto_admin/$', auto_views.auto_admin, name="auto_admin"),
+    url(r'^customer_list/$', auto_views.customer_list, name="customer_list"),
+    url(r'^customer_search/$', auto_views.customer_search, name="customer_search"),
     url(r'^$', auto_views.index),
     url(r'^error/$', auto_views.error)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \

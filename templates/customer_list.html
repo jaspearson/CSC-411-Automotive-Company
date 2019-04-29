@@ -1,0 +1,85 @@
+{% extends 'admin_base.html' %}
+{% block entry %}
+    {% load static %}
+    {% load custom_template_filters %}
+
+    <!--Search feature -->
+    <div class="container-fluid">
+    <br/>
+        <div class="row">
+
+            <!-- Search Form -->
+            <div class="col-sm">
+                <form id="search-customer" class="form-inline my-2 my-lg-0 " method="GET" action="{% url 'customer_search' %}">
+                    <input id="customer_search" class="form-control mr-sm-2" type="search" placeholder="First Name, last name, or email address" name="customer_search" value ="{{ request.GET.customer_search }}">
+                    <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">
+                        <img src="/static/images/search-icon.png" alt="Search Icon" style="width: 25px; height: 25px;">
+                    </button>
+                </form>
+            </div>
+
+            <!--Empty Column for spacing purposes-->
+            <div class="col-sm">
+
+            </div>
+
+            <!--Add Customer Button-->
+            <div class="col-sm text-right">
+                <img src="{% static 'images/add-icon.png'%}"/> Add Customer
+            </div>
+         </div>
+    <br/>
+    </div>
+
+    <div class="container-fluid">
+
+        <div class="col">
+            <div class = "row">
+                <div class="card-deck">
+                {% for customer in customers %}
+                    <div class="col-md-4" >
+                         <div class="card card h-100" style="width: 17rem;">
+                             <!--Display profile image -->
+                             <!--silhouette for now -->
+                             <div class="profile-image-wrapper text-center">
+                                <img class="card-img-top img-fluid p-1" src="{% static '/images/silhouette-unisex.png' %}" alt="profile image" style="max-height: 100px; max-width: 100px;">
+                             </div>
+
+                             <!-- Display full name -->
+                             <div class="card-body">
+                              <h5 class="card-title">{{ customer.first_name }} {{ customer.last_name }}</h5>
+
+                             <!-- Display the phone and email address -->
+                              <p class="card-text">
+                                  {{ customer.phone | phone_number}} <br/>
+                                  {{ customer.email }}
+                              </p>
+                            </div>
+                          </div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="pagination">
+            <span class="step-links">
+                {% if customers.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ customers.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ customers.number }} of {{ customers.paginator.num_pages }}.
+                </span>
+
+                {% if customers.has_next %}
+                    <a href="?page={{ customers.next_page_number }}">next</a>
+                    <a href="?page={{ customers.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+
+
+    {% csrf_token %}
+{% endblock %}

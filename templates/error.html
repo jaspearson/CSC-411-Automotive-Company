@@ -2,11 +2,11 @@
 {% block content %}
 
     <div class="container">
-    Opps...Something went wrong.
 
-        {%  for e in the_errors %}
-            {{ e.error }}
-        {% endfor %}
+
+        <div class="alert alert-primary" role="alert">
+            {{ error }}
+        </div>
 
     </div>
 
