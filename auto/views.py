@@ -17,7 +17,7 @@ def customer_list(requests):
 	try:
 
 		result_list = Customer.objects.order_by('last_name')
-		paginator = Paginator(result_list, 25)	# Show 25 customers per page.
+		paginator = Paginator(result_list, 27)	# Show 27 customers per page.
 
 		page = requests.GET.get('page')
 		results = paginator.get_page(page)
@@ -59,7 +59,7 @@ def customer_search(requests):
 			else:
 				result_list = Customer.objects.raw(query_string, [search_id, search_id, search_id, search_id])
 
-			paginator = Paginator(result_list, 25)
+			paginator = Paginator(result_list, 27)
 
 			page = requests.GET.get('page')
 			results = paginator.get_page(page)
