@@ -9,18 +9,13 @@
         <div class="row">
 
             <!-- Search Form -->
-            <div class="col-sm">
+            <div class="col-md">
                 <form id="search-customer" class="form-inline my-2 my-lg-0 " method="GET" action="{% url 'customer_search' %}">
                     <input id="customer_search" class="form-control mr-sm-2" type="search" placeholder="First Name, last name, or email address" name="customer_search" value ="{{ request.GET.customer_search }}">
                     <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">
                         <img src="/static/images/search-icon.png" alt="Search Icon" style="width: 25px; height: 25px;">
                     </button>
                 </form>
-            </div>
-
-            <!--Empty Column for spacing purposes-->
-            <div class="col-sm">
-
             </div>
 
             <!--Add Customer Button-->
