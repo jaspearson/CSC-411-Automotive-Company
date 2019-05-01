@@ -14,6 +14,7 @@ def auto_admin(requests):
 	return render(requests, 'admin_index.html', {})
 
 def customer_list(requests):
+
 	try:
 
 		result_list = Customer.objects.order_by('last_name')
@@ -23,7 +24,7 @@ def customer_list(requests):
 		results = paginator.get_page(page)
 
 		if result_list.exists():
-			return render(requests, 'customer_list.html', {'customers': results})
+			return render(requests, 'customer_list.html', {'customers': results, 'customer_list': "active"})
 		else:
 			return render(requests, 'error.html', 'No customers found')
 
@@ -66,7 +67,7 @@ def customer_search(requests):
 
 			if len(result_list) > 0:
 				# print("i got to Customer search result_list > 0")
-				return render(requests, 'customer_list.html', {'customers': results})
+				return render(requests, 'customer_list.html', {'customers': results, 'customer_list': 'active'})
 			else:
 				# print("i got to Customer search else")
 				return error(requests, 'No customers found')
