@@ -5,6 +5,7 @@ from django.db import models
 
 # Customers Model
 class Customer(models.Model):
+	id = models.IntegerField(primary_key=True)
 	first_name = models.CharField(max_length=100)
 	last_name = models.CharField(max_length=100)
 	DOB = models.DateField(null=False)
@@ -35,3 +36,12 @@ class Dealer(models.Model):
 # Model Model
 class Model(models.Model):
 	name = models.CharField(max_length=100)
+
+
+# States Model
+class State(models.Model):
+
+	name = models.CharField(max_length=45)
+	abbreviation = models.CharField(max_length=2, primary_key=True)
+
+

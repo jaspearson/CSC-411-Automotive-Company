@@ -2,8 +2,10 @@ from django.shortcuts import render, render_to_response, get_object_or_404
 from django.http import HttpResponse
 from django.db.models import Q
 from django.shortcuts import render
+from django.shortcuts import redirect
 from .models import *
 from django.core.paginator import Paginator
+from forms.customer_edit_form import CustomerEditForm
 
 # Handle the landing page requests.
 def index(requests):
@@ -76,6 +78,40 @@ def customer_search(requests):
 			# print("i got to Customer.DoesNotExist")
 			return error(requests, 'Oops...Something went wrong with your search.')
 
+
+# Used to edit existing customers.
+# jaspearson
+def customer_edit(requests, userid):
+
+	customer = get_object_or_404(Customer, pk=userid)
+	if requests.method == 'POST':
+		form = CustomerEditForm(requests.POST, instance=customer)
+		print("customer_edit: I got this far...editing an existing customer")
+
+		if form.is_valid():
+			form.save()
+			return redirect('/customer_list/')
+
+	else:
+		form = CustomerEditForm(instance=customer)
+		return render(requests, 'customer_edit.html', {'form': form})
+
+
+# Used to edit create new customers.
+# jaspearson
+def customer_new(requests):
+
+	if requests.method == 'POST':
+		form = CustomerEditForm(requests.POST)
+		print("customer_edit: I got this far...creating a new customer.")
+
+		if form.is_valid():
+			form.save()
+			return redirect('/customer_list/')
+
+	else:
+		form = CustomerEditForm()
+		return render(requests, 'customer_edit.html', {'form': form})
 
 # Handle errors page.
 def error(requests, error):

@@ -23,9 +23,19 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^auto_admin/$', auto_views.auto_admin, name="auto_admin"),
+
+    # Customer List
     url(r'^customer_list/$', auto_views.customer_list, name="customer_list"),
+
+    # Customer Search
     url(r'^customer_search/$', auto_views.customer_search, name="customer_search"),
+
+    # Customer Edit
+    path('customer_edit/<int:userid>', auto_views.customer_edit, name="customer_edit"),
+
+    # Customer Create
+    path('customer_edit/new', auto_views.customer_new, name="customer_new"),
     url(r'^$', auto_views.index),
-    url(r'^error/$', auto_views.error)
+    url(r'^error/$', auto_views.error),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
               + static(settings.STATIC_URL, document_root=settings.STATIC_URL)

@@ -20,7 +20,9 @@
 
             <!--Add Customer Button-->
             <div class="col-sm text-right">
-                <img src="{% static 'images/add-icon.png'%}"/> Add Customer
+                <a href="{% url 'customer_new' %}">
+                    <img src="{% static 'images/add-icon.png'%}"/> Add Customer
+                </a>
             </div>
          </div>
     <br/>
@@ -42,8 +44,9 @@
 
                              <!-- Display full name -->
                              <div class="card-body">
-                              <h5 class="card-title">{{ customer.first_name }} {{ customer.last_name }}</h5>
-
+                                <a href="{% url 'customer_edit' customer.pk %}">
+                                    <h5 class="card-title">{{ customer.first_name }} {{ customer.last_name }}</h5>
+                                </a>
                              <!-- Display the phone and email address -->
                               <p class="card-text">
                                   {{ customer.phone | phone_number}} <br/>
