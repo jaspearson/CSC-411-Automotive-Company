@@ -77,7 +77,7 @@ def customer_search(requests):
 def customer_edit(requests, userid):
 	select_query_string = "SELECT * from auto_customer WHERE id = %s"
 	update_query_string = "Update auto_customer SET first_name = %s, last_name = %s, DOB = %s, address1 = %s, address2 =%s," \
-						  " city = %s, state = %s, zip = %s, email = %s, phone = %s, gender = %s, phone = %s, annual_income = %s " \
+						  " city = %s, state = %s, zip = %s, email = %s, phone = %s, gender = %s, annual_income = %s " \
 						  "WHERE id = %s"
 
 	if requests.method == 'POST':
@@ -102,7 +102,7 @@ def customer_edit(requests, userid):
 
 			# Execute the update Query.
 			with connection.cursor() as cursor:
-				cursor.execute(update_query_string, [first_name, last_name, DOB, address1, address2, city, state, zip, email, phone, gender, phone, annual_income, userid])
+				cursor.execute(update_query_string, [first_name, last_name, DOB, address1, address2, city, state, zip, email, phone, gender, annual_income, userid])
 
 			# Redirect the user to the customer list.
 			return redirect('/customer_list/')
@@ -130,13 +130,44 @@ def customer_edit(requests, userid):
 # Used to edit create new customers.
 # jaspearson
 def customer_new(requests):
+	insert_query_string = 'INSERT INTO auto_customer (first_name, last_name, DOB, address1, address2, city, state, zip,' \
+						  ' email, phone, gender, annual_income) ' \
+						  'VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
 
 	if requests.method == 'POST':
 		form = CustomerEditForm(requests.POST)
 		print("customer_edit: I got this far...creating a new customer.")
 
 		if form.is_valid():
-			form.save()
+
+			# Get the user altered data from the form.
+			first_name = form.cleaned_data['first_name']
+			last_name = form.cleaned_data['last_name']
+			DOB = form.cleaned_data['DOB']
+			address1 = form.cleaned_data['address1']
+			address2 = form.cleaned_data['address2']
+			city = form.cleaned_data['city']
+			state = form.cleaned_data['state']
+			zip = form.cleaned_data['zip']
+			email = form.cleaned_data['email']
+			phone = form.cleaned_data['phone']
+			gender = form.cleaned_data['gender']
+			annual_income = form.cleaned_data['annual_income']
+
+			# Execute the update Query.
+			with connection.cursor() as cursor:
+				cursor.execute(insert_query_string, [first_name,
+													 last_name,
+													 DOB,
+													 address1,
+													 address2,
+													 city,
+													 state,
+													 zip,
+													 email,
+													 phone,
+													 gender,
+													 annual_income])
 			return redirect('/customer_list/')
 
 	else:
