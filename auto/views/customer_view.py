@@ -1,19 +1,13 @@
 from django.shortcuts import render, render_to_response, get_object_or_404
-from django.http import HttpResponse
-from django.db.models import Q
-from django.shortcuts import render
-from django.shortcuts import redirect
-from .models import *
 from django.core.paginator import Paginator
+from django.shortcuts import redirect
+from auto.models import *
 from forms.customer_edit_form import CustomerEditForm
-
-# Handle the landing page requests.
-def index(requests):
-	return render(requests, 'index.html', {})
+from .views import error
+from django.db import connection
 
 
-def auto_admin(requests):
-	return render(requests, 'admin_index.html', {})
+
 
 def customer_list(requests):
 
@@ -33,7 +27,6 @@ def customer_list(requests):
 	except Customer.DoesNotExist:
 
 		return render(requests, 'error.html', 'Oops...Something went wrong with your search.')
-
 
 # Customer_search function used to search for customers by name, email, or phone.
 def customer_search(requests):
@@ -82,20 +75,57 @@ def customer_search(requests):
 # Used to edit existing customers.
 # jaspearson
 def customer_edit(requests, userid):
+	select_query_string = "SELECT * from auto_customer WHERE id = %s"
+	update_query_string = "Update auto_customer SET first_name = %s, last_name = %s, DOB = %s, address1 = %s, address2 =%s," \
+						  " city = %s, state = %s, zip = %s, email = %s, phone = %s, gender = %s, phone = %s, annual_income = %s " \
+						  "WHERE id = %s"
 
-	customer = get_object_or_404(Customer, pk=userid)
 	if requests.method == 'POST':
-		form = CustomerEditForm(requests.POST, instance=customer)
+		form = CustomerEditForm(requests.POST)
 		print("customer_edit: I got this far...editing an existing customer")
 
 		if form.is_valid():
-			form.save()
+
+			# Get the user altered data from the form.
+			first_name = form.cleaned_data['first_name']
+			last_name = form.cleaned_data['last_name']
+			DOB = form.cleaned_data['DOB']
+			address1 = form.cleaned_data['address1']
+			address2 = form.cleaned_data['address2']
+			city = form.cleaned_data['city']
+			state = form.cleaned_data['state']
+			zip = form.cleaned_data['zip']
+			email = form.cleaned_data['email']
+			phone = form.cleaned_data['phone']
+			gender = form.cleaned_data['gender']
+			annual_income = form.cleaned_data['annual_income']
+
+			# Execute the update Query.
+			with connection.cursor() as cursor:
+				cursor.execute(update_query_string, [first_name, last_name, DOB, address1, address2, city, state, zip, email, phone, gender, phone, annual_income, userid])
+
+			# Redirect the user to the customer list.
 			return redirect('/customer_list/')
 
 	else:
-		form = CustomerEditForm(instance=customer)
-		return render(requests, 'customer_edit.html', {'form': form})
 
+		# Retrieve from the database using SQL
+		customer = Customer.objects.raw(select_query_string, [userid])
+
+		# Retrieve from database using models.
+		# customer = Customer.objects.filter(id=userid).defer("updated", "DOB").values()
+
+		# Convert the raw query set to a dictionary object.
+		customer = [dict(c.__dict__) for c in customer]
+
+		# For Debugging purposes print out the customer
+		print(customer[0])
+
+		# Bind the form to the data
+		form = CustomerEditForm(customer[0])
+
+		# Render the data on the form.
+		return render(requests, 'customer_edit.html', {'form': form})
 
 # Used to edit create new customers.
 # jaspearson
@@ -112,8 +142,3 @@ def customer_new(requests):
 	else:
 		form = CustomerEditForm()
 		return render(requests, 'customer_edit.html', {'form': form})
-
-# Handle errors page.
-def error(requests, error):
-	return render(requests, 'error.html', {'error': error})
-

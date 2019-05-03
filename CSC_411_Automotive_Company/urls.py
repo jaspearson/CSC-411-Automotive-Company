@@ -16,26 +16,27 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
-from auto import views as auto_views
+from auto.views.views import *
+from auto.views.customer_view import *
 from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^auto_admin/$', auto_views.auto_admin, name="auto_admin"),
+    url(r'^auto_admin/$', auto_admin, name="auto_admin"),
 
     # Customer List
-    url(r'^customer_list/$', auto_views.customer_list, name="customer_list"),
+    url(r'^customer_list/$', customer_list, name="customer_list"),
 
     # Customer Search
-    url(r'^customer_search/$', auto_views.customer_search, name="customer_search"),
+    url(r'^customer_search/$', customer_search, name="customer_search"),
 
     # Customer Edit
-    path('customer_edit/<int:userid>', auto_views.customer_edit, name="customer_edit"),
+    path('customer_edit/<int:userid>', customer_edit, name="customer_edit"),
 
     # Customer Create
-    path('customer_edit/new', auto_views.customer_new, name="customer_new"),
-    url(r'^$', auto_views.index),
-    url(r'^error/$', auto_views.error),
+    path('customer_edit/new', customer_new, name="customer_new"),
+    url(r'^$', index),
+    url(r'^error/$', error),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
               + static(settings.STATIC_URL, document_root=settings.STATIC_URL)

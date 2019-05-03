@@ -5,8 +5,8 @@ import datetime
 
 # Used to specify the range of years that appears in the Date of birth field.
 YEARS = [x for x in range(1919, 2020)]
-
-class CustomerEditForm(forms.ModelForm):
+#forms.ModelForm
+class CustomerEditForm(forms.Form):
 
 
 	first_name = forms.CharField(label='First name', max_length=100)
@@ -24,7 +24,7 @@ class CustomerEditForm(forms.ModelForm):
 	phone = forms.CharField(label='Phone', max_length=15)
 	gender = forms.CharField(label='Gender', max_length=1)
 	annual_income = forms.IntegerField(label="Annual income")
-
+"""
 	class Meta:
 		model = Customer
 		fields = ['first_name',
@@ -40,5 +40,5 @@ class CustomerEditForm(forms.ModelForm):
 				  'gender',
 				  'annual_income' ]
 
-
+"""
 
