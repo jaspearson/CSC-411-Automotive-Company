@@ -1,0 +1,69 @@
+{% extends 'admin_base.html' %}
+{% block entry %}
+    {% load static %}
+    {% load custom_template_filters %}
+
+    <!--Search feature -->
+    <div class="container-fluid">
+    <br/>
+        <div class="row">
+
+            <!-- Search Form -->
+            <div class="col-md">
+                <form id="search-dealer" class="form-inline my-2 my-lg-0 " method="GET" action="{% url 'dealer_search' %}">
+                    <input id="dealer_search" class="form-control mr-sm-2" type="search" placeholder="Name, city, state, or phone" name="dealer_search" value ="{{ request.GET.dealer_search }}">
+                    <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">
+                        <img src="/static/images/search-icon.png" alt="Search Icon" style="width: 25px; height: 25px;">
+                    </button>
+                </form>
+            </div>
+
+            <!--Add Dealer Button-->
+            <div class="col-sm text-right">
+                <a href="{% url 'dealer_new' %}">
+                    <img alt='Add dealer button' src="{% static 'images/add-icon.png'%}"/> Add dealer
+                </a>
+            </div>
+         </div>
+    <br/>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">City</th>
+          <th scope="col">State</th>
+          <th scope="col">Phone</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for dealer in dealers %}
+            <tr>
+              <td>
+                  <a href="{% url 'dealer_edit' dealer.pk %}" >{{ dealer.name }}</a>
+              </td>
+              <td>{{ dealer.city }}</td>
+              <td>{{ dealer.state}}</td>
+              <td>{{ dealer.phone | phone_number}}</td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="pagination">
+            <span class="step-links">
+                {% if dealers.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ dealers.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ dealers.number }} of {{ dealers.paginator.num_pages }}.
+                </span>
+
+                {% if dealers.has_next %}
+                    <a href="?page={{ dealers.next_page_number }}">next</a>
+                    <a href="?page={{ dealers.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+{% endblock %}
