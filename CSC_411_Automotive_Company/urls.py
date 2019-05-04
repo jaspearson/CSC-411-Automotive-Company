@@ -21,6 +21,7 @@ from auto.views.customer_view import *
 from auto.views.dealer_view import *
 from auto.views.model_view import *
 from auto.views.supplier_view import *
+from auto.views.manufacturer_view import *
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -76,6 +77,18 @@ urlpatterns = [
 
 	# Supplier Create
 	path('auto_admin/supplier_edit/new', supplier_new, name="supplier_new"),
+
+	# Manufacturer List
+	url(r'^auto_admin/manufacturer_list/$', manufacturer_list, name="manufacturer_list"),
+
+	# Manufacturer Search
+	url(r'^auto_admin/manufacturer_search/$', manufacturer_search, name="manufacturer_search"),
+
+	# Manufacture Edit
+	path('auto_admin/manufacturer_edit/<int:manufacturer_id>', manufacturer_edit, name="manufacturer_edit"),
+
+	# Manufacturer Create
+	path('auto_admin/manufacturer_edit/new', manufacturer_new, name="manufacturer_new"),
 
 	url(r'^$', index),
 	url(r'^error/$', error),

@@ -1,0 +1,22 @@
+{% extends 'admin_base.html' %}
+{% block entry %}
+    {% load static %}
+
+    <br/>
+    <div class="d-flex justify-content-center">
+        <form method="POST">
+            {% csrf_token %}
+
+            <!--The Django Rendered form will appear here. -->
+            <table>{{ form.as_table }}</table>
+
+            <br/>
+
+            <!--Submit button-->
+            <div class="d-flex justify-content-center">
+                <input type="submit" value="Submit">
+            </div>
+
+        </form>
+    </div>
+{% endblock %}

@@ -55,7 +55,15 @@ class Supplier(models.Model):
 	zip = models.CharField(max_length=5)
 	phone = models.CharField(max_length=15)
 
-
+# Manufacturer Model
+class Manufacturer(models.Model):
+	name = models.CharField(max_length=100)
+	address1 = models.CharField(max_length=100)
+	address2 = models.CharField(max_length=100)
+	city = models.CharField(max_length=50)
+	state = models.CharField(max_length=2)
+	zip = models.CharField(max_length=5)
+	phone = models.CharField(max_length=15)
 
 
 # States Model

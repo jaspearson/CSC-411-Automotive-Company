@@ -1,0 +1,81 @@
+{% extends 'admin_base.html' %}
+{% block entry %}
+    {% load static %}
+    {% load custom_template_filters %}
+
+    {% if error %}
+        <br/>
+        <div class="alert alert-primary" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+     <!--Search feature -->
+    <div class="container-fluid">
+    <br/>
+        <div class="row">
+
+            <!-- Search Form -->
+            <div class="col-md">
+                <form id="search-manufacturer" class="form-inline my-2 my-lg-0 " method="GET" action="{% url 'manufacturer_search' %}">
+                    <input id="manufacturer_search" class="form-control mr-sm-2" type="search" placeholder="Name, city, state, or phone" name="manufacturer_search" value ="{{ request.GET.manufacturer_search }}">
+                    <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">
+                        <img src="/static/images/search-icon.png" alt="Search Icon" style="width: 25px; height: 25px;">
+                    </button>
+                </form>
+            </div>
+
+            <!--Add manufacturer Button-->
+            <div class="col-sm text-right">
+                <a href="{% url 'manufacturer_new' %}">
+                    <img alt='Add manufacturer button' src="{% static 'images/add-icon.png'%}"/> Add manufacturer
+                </a>
+            </div>
+         </div>
+    <br/>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">City</th>
+          <th scope="col">State</th>
+          <th scope="col">Zip</th>
+          <th scope="col">Phone</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for manufacturer in manufacturers %}
+            <tr>
+              <td>
+                  <a href="{% url 'manufacturer_edit' manufacturer.pk %}" >{{ manufacturer.name }}</a>
+              </td>
+              <td>{{ manufacturer.city }}</td>
+              <td>{{ manufacturer.state}}</td>
+              <td>{{ manufacturer.zip}}</td>
+              <td>{{ manufacturer.phone}}</td>
+
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="pagination">
+            <span class="step-links">
+                {% if manufacturers.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ manufacturers.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ manufacturers.number }} of {{ manufacturers.paginator.num_pages }}.
+                </span>
+
+                {% if manufacturers.has_next %}
+                    <a href="?page={{ manufacturers.next_page_number }}">next</a>
+                    <a href="?page={{ manufacturers.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    {% csrf_token %}
+{% endblock %}
