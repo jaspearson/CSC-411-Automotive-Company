@@ -34,8 +34,19 @@ class Dealer(models.Model):
 
 
 # Model Model
-class Model(models.Model):
+class cModel(models.Model):
 	name = models.CharField(max_length=100)
+	base_price = models.DecimalField(max_digits=10, decimal_places=2)
+	est_miles_per_gallon = models.IntegerField()
+	body_style = models.CharField(max_length=45)
+	year = models.IntegerField()
+	color = models.CharField(max_length=45)
+	engine = models.CharField(max_length=45)
+	transmission = models.CharField(max_length=45)
+	brand = models.CharField(max_length=45)
+
+
+
 
 
 # States Model

@@ -1,0 +1,82 @@
+{% extends 'admin_base.html' %}
+{% block entry %}
+    {% load static %}
+    {% load custom_template_filters %}
+
+     <!--Search feature -->
+    <div class="container-fluid">
+    <br/>
+        <div class="row">
+
+            <!-- Search Form -->
+            <div class="col-md">
+                <form id="search-model" class="form-inline my-2 my-lg-0 " method="GET" action="{% url 'model_search' %}">
+                    <input id="model_search" class="form-control mr-sm-2" type="search" placeholder="Name, city, state, or phone" name="model_search" value ="{{ request.GET.model_search }}">
+                    <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">
+                        <img src="/static/images/search-icon.png" alt="Search Icon" style="width: 25px; height: 25px;">
+                    </button>
+                </form>
+            </div>
+
+            <!--Add Model Button-->
+            <div class="col-sm text-right">
+                <a href="{% url 'model_new' %}">
+                    <img alt='Add model button' src="{% static 'images/add-icon.png'%}"/> Add model
+                </a>
+            </div>
+         </div>
+    <br/>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">List Price</th>
+          <th scope="col">MPG</th>
+          <th scope="col">Body Style</th>
+          <th scope="col">Year</th>
+          <th scope="col">Color</th>
+          <th scope="col">Engine</th>
+          <th scope="col">Transmission</th>
+          <th scope="col">Brand</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cmodel in cmodels %}
+            <tr>
+              <td>
+                  <a href="{% url 'model_edit' cmodel.pk %}" >{{ cmodel.name }}</a>
+              </td>
+              <td>{{ cmodel.base_price }}</td>
+              <td>{{ cmodel.est_miles_per_gallon}}</td>
+              <td>{{ cmodel.body_style}}</td>
+              <td>{{ cmodel.year}}</td>
+              <td>{{ cmodel.color}}</td>
+              <td>{{ cmodel.engine}}</td>
+              <td>{{ cmodel.transmission}}</td>
+              <td>{{ cmodel.brand}}</td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="pagination">
+            <span class="step-links">
+                {% if cmodels.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ cmodels.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ cmodels.number }} of {{ cmodels.paginator.num_pages }}.
+                </span>
+
+                {% if cmodels.has_next %}
+                    <a href="?page={{ cmodels.next_page_number }}">next</a>
+                    <a href="?page={{ cmodels.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    {% csrf_token %}
+{% endblock %}
