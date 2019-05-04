@@ -18,3 +18,8 @@ def auto_admin(requests):
 def error(requests, error):
 	return render(requests, 'error.html', {'error': error})
 
+
+# Handles errors for the admin site.
+def admin_error(requests, error):
+	return render(requests, 'admin_error.html', {'error': error})
+

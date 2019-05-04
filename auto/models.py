@@ -45,6 +45,15 @@ class cModel(models.Model):
 	transmission = models.CharField(max_length=45)
 	brand = models.CharField(max_length=45)
 
+# Supplier Model
+class Supplier(models.Model):
+	name = models.CharField(max_length=100)
+	address1 = models.CharField(max_length=100)
+	address2 = models.CharField(max_length=100)
+	city = models.CharField(max_length=50)
+	state = models.CharField(max_length=2)
+	zip = models.CharField(max_length=5)
+	phone = models.CharField(max_length=15)
 
 
 

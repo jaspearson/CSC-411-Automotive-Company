@@ -1,0 +1,14 @@
+{% extends 'admin_base.html' %}
+{% block entry %}
+
+    <div class="container">
+
+
+        <div class="alert alert-primary" role="alert">
+            {{ error }}
+        </div>
+
+    </div>
+
+    {% csrf_token %}
+{% endblock %}

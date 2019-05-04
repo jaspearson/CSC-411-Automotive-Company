@@ -1,0 +1,81 @@
+{% extends 'admin_base.html' %}
+{% block entry %}
+    {% load static %}
+    {% load custom_template_filters %}
+
+    {% if error %}
+        <br/>
+        <div class="alert alert-primary" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+     <!--Search feature -->
+    <div class="container-fluid">
+    <br/>
+        <div class="row">
+
+            <!-- Search Form -->
+            <div class="col-md">
+                <form id="search-supplier" class="form-inline my-2 my-lg-0 " method="GET" action="{% url 'supplier_search' %}">
+                    <input id="supplier_search" class="form-control mr-sm-2" type="search" placeholder="Name, city, state, or phone" name="supplier_search" value ="{{ request.GET.supplier_search }}">
+                    <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">
+                        <img src="/static/images/search-icon.png" alt="Search Icon" style="width: 25px; height: 25px;">
+                    </button>
+                </form>
+            </div>
+
+            <!--Add Supplier Button-->
+            <div class="col-sm text-right">
+                <a href="{% url 'supplier_new' %}">
+                    <img alt='Add supplier button' src="{% static 'images/add-icon.png'%}"/> Add supplier
+                </a>
+            </div>
+         </div>
+    <br/>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">City</th>
+          <th scope="col">State</th>
+          <th scope="col">Zip</th>
+          <th scope="col">Phone</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for supplier in suppliers %}
+            <tr>
+              <td>
+                  <a href="{% url 'supplier_edit' supplier.pk %}" >{{ supplier.name }}</a>
+              </td>
+              <td>{{ supplier.city }}</td>
+              <td>{{ supplier.state}}</td>
+              <td>{{ supplier.zip}}</td>
+              <td>{{ supplier.phone}}</td>
+
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="pagination">
+            <span class="step-links">
+                {% if suppliers.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ suppliers.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ suppliers.number }} of {{ suppliers.paginator.num_pages }}.
+                </span>
+
+                {% if suppliers.has_next %}
+                    <a href="?page={{ suppliers.next_page_number }}">next</a>
+                    <a href="?page={{ suppliers.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    {% csrf_token %}
+{% endblock %}
