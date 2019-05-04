@@ -53,7 +53,7 @@ def dealer_search(requests):
 			if len(result_list) > 0:
 				return render(requests, 'dealer_list.html', {'dealers': results, 'dealer': 'active'})
 			else:
-				return error(requests, 'No dealers found')
+				return render(requests, 'dealer_list.html', {'error': 'No dealers found.', 'dealer': 'active'})
 		except Dealer.DoesNotExist:
 			return error(requests, 'Oops...Something went wrong with your search.')
 
