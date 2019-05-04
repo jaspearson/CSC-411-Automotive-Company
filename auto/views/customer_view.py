@@ -22,11 +22,11 @@ def customer_list(requests):
 		if result_list.exists():
 			return render(requests, 'customer_list.html', {'customers': results, 'customer_list': "active"})
 		else:
-			return render(requests, 'error.html', 'No customers found')
+			return render(requests, 'customer_list.html', {'error':'No customers found'})
 
 	except Customer.DoesNotExist:
 
-		return render(requests, 'error.html', 'Oops...Something went wrong with your search.')
+		return render(requests, 'customer_list.html', {'error': 'Oops...Something went wrong with your search.', 'customer_list': 'active'})
 
 # Customer_search function used to search for customers by name, email, or phone.
 def customer_search(requests):
@@ -65,11 +65,11 @@ def customer_search(requests):
 				return render(requests, 'customer_list.html', {'customers': results, 'customer_list': 'active'})
 			else:
 				# print("i got to Customer search else")
-				return error(requests, 'No customers found')
+				return render(requests, 'customer_list.html', {'error': 'No customers found', 'customer_list': 'active'})
 
 		except Customer.DoesNotExist:
 			# print("i got to Customer.DoesNotExist")
-			return error(requests, 'Oops...Something went wrong with your search.')
+			return render(requests, 'customer_list.html', {'error': 'Oops...Something went wrong with your search.', 'customer_list': 'active'})
 
 
 # Used to edit existing customers.

@@ -3,6 +3,13 @@
     {% load static %}
     {% load custom_template_filters %}
 
+    {% if error %}
+        <br/>
+        <div class="alert alert-primary" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+
     <!--Search feature -->
     <div class="container-fluid">
     <br/>
