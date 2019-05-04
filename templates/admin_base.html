@@ -14,16 +14,34 @@
         <a class="nav-link {{ cmodel }}" href="{% url 'model_list' %}">Models</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Sales</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link {{ supplier_tab }}" href="{% url 'supplier_list' %}">Suppliers</a>
       </li>
       <li class="nav-item">
         <a class="nav-link {{ manufacturer_tab }}" href="{% url 'manufacturer_list' %}">Manufacturers</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Orders</a>
+        <a class="nav-link" href="#">Sales</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Inventory</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Orders</a>
+          <div class="dropdown-menu bg-dark">
+              <a class="dropdown-item text-light" href="#">Parts Orders</a>
+              <a class="dropdown-item text-light" href="#">Vehicle Orders</a>
+          </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reports</a>
+          <div class="dropdown-menu bg-dark">
+              <a class="dropdown-item text-light" href="#">Sales Trends</a>
+              <a class="dropdown-item text-light" href="#">Customer Recalls</a>
+              <a class="dropdown-item text-light" href="#">Top Brands By Dollar Amount</a>
+              <a class="dropdown-item text-light" href="#">Top Brands by Sales Count</a>
+              <a class="dropdown-item text-light" href="#">Convertible Sales</a>
+              <a class="dropdown-item text-light" href="#">Dealer Aging</a>
+          </div>
       </li>
     </ul>
 
