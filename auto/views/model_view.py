@@ -58,7 +58,7 @@ def model_search(requests):
 			if len(results_list) > 0:
 				return render(requests, 'model_list.html', {'cmodels': results, 'cmodel': 'active'})
 			else:
-				error(requests, 'No models found')
+				return render(requests, 'model_list.html', {'error': 'No models found.', 'cmodel': 'active'})
 		except cModel.DoesNotExist:
 			return error(requests, 'Oops...Something went wrong with your search.')
 
