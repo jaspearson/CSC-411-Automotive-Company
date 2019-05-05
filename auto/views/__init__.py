@@ -5,3 +5,4 @@ from .supplier_view import *
 from .manufacturer_view import *
 from .sale_view import *
 from .model_view import *
+from .report_view import *

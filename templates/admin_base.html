@@ -33,12 +33,11 @@
           </div>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reports</a>
+        <a class="nav-link dropdown-toggle {{ report_tab }}" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reports</a>
           <div class="dropdown-menu bg-dark">
               <a class="dropdown-item text-light" href="#">Sales Trends</a>
               <a class="dropdown-item text-light" href="#">Customer Recalls</a>
-              <a class="dropdown-item text-light" href="#">Top Brands By Dollar Amount</a>
-              <a class="dropdown-item text-light" href="#">Top Brands by Sales Count</a>
+              <a class="dropdown-item text-light" href="{% url 'top_brands_report' %}">Top Brands</a>
               <a class="dropdown-item text-light" href="#">Convertible Sales</a>
               <a class="dropdown-item text-light" href="#">Dealer Aging</a>
           </div>

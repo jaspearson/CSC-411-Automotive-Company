@@ -79,6 +79,15 @@ class SaleView(models.Model):
 		managed = False
 		db_table = "auto_sales_view"
 
+# Reports Models
+# Top Brands by Sales Counts
+class TopBrandsByCount(models.Model):
+	brand = models.CharField(max_length=45, primary_key=True)
+	sales_count = models.IntegerField()
+
+class TopBrandsByAmount(models.Model):
+	brand = models.CharField(max_length=45, primary_key=True)
+	sales_amount = models.IntegerField()
 
 # States Model
 class State(models.Model):

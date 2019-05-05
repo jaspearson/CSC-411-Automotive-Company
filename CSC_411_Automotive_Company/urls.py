@@ -97,6 +97,10 @@ urlpatterns = [
 	# Sale Create
 	path('auto_admin/sale_edit/new', sale_new, name="sale_new"),
 
+	# Reports
+	# Top Brands
+	url(r'^auto_admin/top_brands_report/$', top_brands_report, name="top_brands_report"),
+
 	url(r'^$', index),
 	url(r'^error/$', error),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
