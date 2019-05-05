@@ -1,0 +1,83 @@
+{% extends 'admin_base.html' %}
+{% block entry %}
+    {% load static %}
+    {% load custom_template_filters %}
+
+    {% if error %}
+        <br/>
+        <div class="alert alert-primary" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+     <!--Search feature -->
+    <div class="container-fluid">
+    <br/>
+        <div class="row">
+
+            <!-- Search Form -->
+            <div class="col-md">
+                <form id="search-sale" class="form-inline my-2 my-lg-0 " method="GET" action="{% url 'sale_search' %}">
+                    <input id="sale_search" class="form-control mr-sm-2" type="search" placeholder="VIN, Model, first, or last name" name="sale_search" value ="{{ request.GET.sale_search }}">
+                    <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">
+                        <img src="/static/images/search-icon.png" alt="Search Icon" style="width: 25px; height: 25px;">
+                    </button>
+                </form>
+            </div>
+
+            <!--Add sale Button-->
+            <div class="col-sm text-right">
+                <a href="{% url 'sale_new' %}">
+                    <img alt='Add sale button' src="{% static 'images/add-icon.png'%}"/> Add sale
+                </a>
+            </div>
+         </div>
+    <br/>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">VIN</th>
+          <th scope="col">Model name</th>
+          <th scope="col">First name</th>
+          <th scope="col">Last name</th>
+          <th scope="col">Sale price</th>
+          <th scope="col">Sale date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for sale in sales %}
+            <tr>
+              <td>
+                  {{ sale.vin }}
+              </td>
+              <td>{{ sale.model_name }}</td>
+              <td>{{ sale.first_name }}</td>
+              <td>{{ sale.last_name}}</td>
+              <td>{{ sale.sale_price }}</td>
+              <td>{{ sale.sale_date}}</td>
+
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="pagination">
+            <span class="step-links">
+                {% if sales.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ sales.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ sales.number }} of {{ sales.paginator.num_pages }}.
+                </span>
+
+                {% if sales.has_next %}
+                    <a href="?page={{ sales.next_page_number }}">next</a>
+                    <a href="?page={{ sales.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    {% csrf_token %}
+{% endblock %}

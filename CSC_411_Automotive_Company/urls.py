@@ -16,12 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
-from auto.views.views import *
-from auto.views.customer_view import *
-from auto.views.dealer_view import *
-from auto.views.model_view import *
-from auto.views.supplier_view import *
-from auto.views.manufacturer_view import *
+from auto.views import *
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -89,6 +84,18 @@ urlpatterns = [
 
 	# Manufacturer Create
 	path('auto_admin/manufacturer_edit/new', manufacturer_new, name="manufacturer_new"),
+
+	# Sale List
+	url(r'^auto_admin/sale_list/$', sale_list, name="sale_list"),
+
+	# Sale Search
+	url(r'^auto_admin/sale_search/$', sale_search, name="sale_search"),
+
+	# Sale Edit
+	#path('auto_admin/sale_edit/<int:sale_id>', sale_edit, name="sale_edit"),
+
+	# Sale Create
+	path('auto_admin/sale_edit/new', sale_new, name="sale_new"),
 
 	url(r'^$', index),
 	url(r'^error/$', error),

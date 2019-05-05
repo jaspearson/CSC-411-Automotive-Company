@@ -66,6 +66,20 @@ class Manufacturer(models.Model):
 	phone = models.CharField(max_length=15)
 
 
+# Sale Model
+class SaleView(models.Model):
+	vin = models.CharField(max_length=14, primary_key=True)
+	model_name = models.CharField(max_length=100)
+	first_name = models.CharField(max_length=100)
+	last_name = models.CharField(max_length=100)
+	sale_price = models.DecimalField(max_digits=10, decimal_places=2)
+	sale_date = models.DateField()
+
+	class Meta:
+		managed = False
+		db_table = "auto_sales_view"
+
+
 # States Model
 class State(models.Model):
 
