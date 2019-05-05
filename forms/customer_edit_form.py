@@ -1,5 +1,5 @@
 from django import forms
-from auto.models import State
+from auto.models import *
 from auto.models import Customer
 import datetime
 
@@ -23,7 +23,8 @@ class CustomerEditForm(forms.Form):
 	email = forms.CharField(label='Email address', max_length=100, widget=forms.EmailInput())
 	phone = forms.CharField(label='Phone', max_length=15)
 	gender = forms.CharField(label='Gender', max_length=1)
-	annual_income = forms.IntegerField(label="Annual income")
+	annual_income = forms.ModelChoiceField(label='Annual income', to_field_name="id", queryset=cust_income_range.objects.all(), empty_label='-- None --')
+	#annual_income = forms.IntegerField(label="Annual income")
 """
 	class Meta:
 		model = Customer

@@ -121,3 +121,11 @@ class State(models.Model):
 	abbreviation = models.CharField(max_length=2, primary_key=True)
 
 
+# Annual Income Model
+class cust_income_range(models.Model):
+	range = models.CharField(max_length=50)
+
+	def __str__(self):
+		return self.range
+
+
