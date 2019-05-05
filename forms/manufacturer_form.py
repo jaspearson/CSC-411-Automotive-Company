@@ -9,4 +9,4 @@ class ManufacturerForm(forms.Form):
 	city = forms.CharField(max_length=50)
 	state =forms.ModelChoiceField(label='State', queryset=State.objects.values_list('abbreviation', flat=True), empty_label='-- None --')
 	zip = forms.CharField(max_length=5, min_length=5)
-	phone = forms.CharField(max_length=15)
+	phone = forms.CharField(max_length=15, required=False)
