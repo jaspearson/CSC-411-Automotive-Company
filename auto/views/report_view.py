@@ -36,3 +36,22 @@ def convertible_sales_report(requests):
 	except TopBrandsByCount.DoesNotExist:
 		return render(requests, 'report_convertible_sale.html',
 					  {'error': 'Oops...Something went wrong with your report.', 'reports_tab': 'active'})
+
+
+def dealer_aging_report(requests):
+	query_string = "SELECT * FROM auto_sales_dealer_aging_view"
+
+
+	try:
+		dealer_aging_results = DealerAging.objects.raw(query_string)
+
+
+		if len(dealer_aging_results) > 0:
+
+			return render(requests, 'report_dealer_aging.html', {'dealer_agings': dealer_aging_results,
+															   'reports_tab': 'active'})
+		else:
+			return render(requests, 'report_dealer_aging.html', {'error': 'No results found.', 'reports_tab': 'active'})
+	except TopBrandsByCount.DoesNotExist:
+		return render(requests, 'report_dealer_aging.html',
+					  {'error': 'Oops...Something went wrong with your report.', 'reports_tab': 'active'})

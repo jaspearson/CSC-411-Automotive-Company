@@ -87,11 +87,13 @@ class TopBrandsByCount(models.Model):
 	sales_count = models.IntegerField()
 
 
+# Top Brands by Amount
 class TopBrandsByAmount(models.Model):
 	brand = models.CharField(max_length=45, primary_key=True)
 	sales_amount = models.IntegerField()
 
 
+# Convertible Sales
 class ConvertibleSaleMonth(models.Model):
 	Month = models.DateField(primary_key=True)
 	Count = models.IntegerField()
@@ -99,6 +101,17 @@ class ConvertibleSaleMonth(models.Model):
 	class Meta:
 		managed=False
 		db_table = 'auto_sales_convertible_view'
+
+
+# Dealer Aging
+class DealerAging(models.Model):
+	id = models.IntegerField(primary_key=True)
+	name = models.CharField(max_length=100)
+	average_days = models.IntegerField()
+
+	class Meta:
+		managed = False
+		db_table = 'auto_sales_dealer_aging_view'
 
 
 # States Model

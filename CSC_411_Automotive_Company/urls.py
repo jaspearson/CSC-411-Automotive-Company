@@ -101,7 +101,12 @@ urlpatterns = [
 	# Top Brands
 	url(r'^auto_admin/top_brands_report/$', top_brands_report, name="top_brands_report"),
 
+	# Convertible Sales
 	url(r'^auto_admin/convertible_sales_report/$', convertible_sales_report, name="convertible_sales_report"),
+
+	# Dealer Aging
+	url(r'^auto_admin/dealer_aging_report/$', dealer_aging_report, name="dealer_aging_report"),
+
 
 	url(r'^$', index),
 	url(r'^error/$', error),
