@@ -101,6 +101,8 @@ urlpatterns = [
 	# Top Brands
 	url(r'^auto_admin/top_brands_report/$', top_brands_report, name="top_brands_report"),
 
+	url(r'^auto_admin/convertible_sales_report/$', convertible_sales_report, name="convertible_sales_report"),
+
 	url(r'^$', index),
 	url(r'^error/$', error),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \

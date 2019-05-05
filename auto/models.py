@@ -79,15 +79,27 @@ class SaleView(models.Model):
 		managed = False
 		db_table = "auto_sales_view"
 
+
 # Reports Models
 # Top Brands by Sales Counts
 class TopBrandsByCount(models.Model):
 	brand = models.CharField(max_length=45, primary_key=True)
 	sales_count = models.IntegerField()
 
+
 class TopBrandsByAmount(models.Model):
 	brand = models.CharField(max_length=45, primary_key=True)
 	sales_amount = models.IntegerField()
+
+
+class ConvertibleSaleMonth(models.Model):
+	Month = models.DateField(primary_key=True)
+	Count = models.IntegerField()
+
+	class Meta:
+		managed=False
+		db_table = 'auto_sales_convertible_view'
+
 
 # States Model
 class State(models.Model):

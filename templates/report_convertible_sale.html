@@ -1,0 +1,38 @@
+{% extends 'admin_base.html' %}
+{% block entry %}
+    {% load static %}
+    {% load custom_template_filters %}
+
+    {% if error %}
+        <br/>
+        <div class="alert alert-primary" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <!-- Convertible Sales by month-->
+    <div id="convertible-sales-by-month-wrapper">
+        <div class="container-fluid">
+        <br/>
+            <h3>Convertible Sales By Month</h3>
+        <br/>
+        </div>
+        <table class="table table-hover table-responsive">
+          <thead>
+            <tr>
+              <th scope="col">Month</th>
+              <th scope="col">Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for c in convertible_sales %}
+                <tr>
+                  <td>{{ c.Month }}</td>
+                  <td>{{ c.Count }}</td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+    {% csrf_token %}
+{% endblock %}
