@@ -1,0 +1,123 @@
+{% extends 'admin_base.html' %}
+{% block entry %}
+    {% load static %}
+    {% load custom_template_filters %}
+
+    {% if error %}
+        <br/>
+        <div class="alert alert-primary" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <!-- trends by year -->
+    <div id="trends-by-year-wrapper">
+        <div class="container-fluid">
+        <br/>
+            <h3>Sales Trend by Year</h3>
+        <br/>
+        </div>
+        <table class="table table-hover table-responsive">
+          <thead>
+            <tr>
+              <th scope="col">Brand</th>
+              <th scope="col">Year</th>
+              <th scope="col">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for trend in trends_by_year %}
+                <tr>
+                  <td>{{ trend.brand }}</td>
+                  <td>{{ trend.theyear }}</td>
+                  <td>{{ trend.total }}</td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+
+    <!--Trends by month -->
+    <div id="trends-by-month-wrapper">
+        <div class="container-fluid">
+        <br/>
+            <h3>Sales Trend by Month</h3>
+        <br/>
+        </div>
+        <table class="table table-hover table-responsive">
+          <thead>
+            <tr>
+              <th scope="col">Brand</th>
+              <th scope="col">Month</th>
+              <th scope="col">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for trend in trends_by_month %}
+                <tr>
+                  <td>{{ trend.brand }}</td>
+                  <td>{{ trend.month }}</td>
+                  <td>{{ trend.total }}</td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+
+    <!--Trends by week -->
+    <div id="trends-by-week-wrapper">
+        <div class="container-fluid">
+        <br/>
+            <h3>Sales Trend by Week</h3>
+        <br/>
+        </div>
+        <table class="table table-hover table-responsive">
+          <thead>
+            <tr>
+              <th scope="col">Brand</th>
+              <th scope="col">Week</th>
+              <th scope="col">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for trend in trends_by_week %}
+                <tr>
+                  <td>{{ trend.brand }}</td>
+                  <td>{{ trend.week }}</td>
+                  <td>{{ trend.total }}</td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+
+    <!--Trends by gender income -->
+    <div id="trends-by-gender-income-wrapper">
+        <div class="container-fluid">
+        <br/>
+            <h3>Sales Trend by Gender Income</h3>
+        <br/>
+        </div>
+        <table class="table table-hover table-responsive">
+          <thead>
+            <tr>
+              <th scope="col">Brand</th>
+              <th scope="col">Gender</th>
+              <th scope="col">Income range</th>
+              <th scope="col">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for trend in trends_by_gender_income %}
+                <tr>
+                  <td>{{ trend.brand }}</td>
+                  <td>{{ trend.gender }}</td>
+                  <td>{{ trend.range }}</td>
+                  <td>{{ trend.total }}</td>
+                </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+    {% csrf_token %}
+{% endblock %}

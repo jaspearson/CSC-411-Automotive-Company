@@ -113,6 +113,49 @@ class DealerAging(models.Model):
 		managed = False
 		db_table = 'auto_sales_dealer_aging_view'
 
+# Sales Trend by year
+class TrendYearView(models.Model):
+	brand = models.CharField(max_length=100, primary_key=True)
+	theyear = models.IntegerField()
+	total = models.DecimalField(max_digits=10, decimal_places=2)
+
+	class Meta:
+		managed = False
+		db_table = 'auto_trend_year_view'
+
+
+# Sales Trend by month
+class TrendMonthView(models.Model):
+	brand = models.CharField(max_length=100, primary_key=True)
+	month = models.IntegerField()
+	total = models.DecimalField(max_digits=10, decimal_places=2)
+
+	class Meta:
+		managed = False
+		db_table = 'auto_trend_month_view'
+
+
+# Sales Trend by month
+class TrendWeekView(models.Model):
+	brand = models.CharField(max_length=100, primary_key=True)
+	week = models.IntegerField()
+	total = models.DecimalField(max_digits=10, decimal_places=2)
+
+	class Meta:
+		managed = False
+		db_table = 'auto_trend_week_view'
+
+
+# Sales Trend Gender Income
+class TrendGenderIncomeView(models.Model):
+	brand = models.CharField(max_length=100, primary_key=True)
+	week = models.IntegerField()
+	total = models.DecimalField(max_digits=10, decimal_places=2)
+
+	class Meta:
+		managed = False
+		db_table = 'auto_trend_gender_income_view'
+
 
 # States Model
 class State(models.Model):
@@ -127,5 +170,7 @@ class cust_income_range(models.Model):
 
 	def __str__(self):
 		return self.range
+
+
 
 

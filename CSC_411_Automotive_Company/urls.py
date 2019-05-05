@@ -107,6 +107,9 @@ urlpatterns = [
 	# Dealer Aging
 	url(r'^auto_admin/dealer_aging_report/$', dealer_aging_report, name="dealer_aging_report"),
 
+	# Sales Trends
+	url(r'^auto_admin/sales_trend_report/$', trend_reports, name="sales_trend_report"),
+
 
 	url(r'^$', index),
 	url(r'^error/$', error),

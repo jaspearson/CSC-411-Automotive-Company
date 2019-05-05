@@ -55,3 +55,29 @@ def dealer_aging_report(requests):
 	except TopBrandsByCount.DoesNotExist:
 		return render(requests, 'report_dealer_aging.html',
 					  {'error': 'Oops...Something went wrong with your report.', 'reports_tab': 'active'})
+
+def trend_reports(requests):
+	query_string_year = "SELECT * FROM auto_trend_year_view"
+	query_string_month = "SELECT * FROM auto_trend_month_view"
+	query_string_week = "SELECT * FROM auto_trend_week_view"
+	query_string_gender_income = "SELECT * FROM auto_trend_gender_income_view"
+
+	try:
+		trend_year_results = TrendYearView.objects.raw(query_string_year)
+		trend_month_results = TrendMonthView.objects.raw(query_string_month)
+		trend_week_results = TrendWeekView.objects.raw(query_string_week)
+		trend_gender_income_results = TrendGenderIncomeView.objects.raw(query_string_gender_income)
+
+		if len(trend_year_results) > 0 and len(trend_month_results) > 0 and len(trend_week_results) > 0\
+				and len(trend_gender_income_results) > 0:
+
+			return render(requests, 'report_sales_trends.html', {'trends_by_year': trend_year_results,
+																 'trends_by_month': trend_month_results,
+																 'trends_by_week': trend_week_results,
+																 'trends_by_gender_income': trend_gender_income_results,
+															   'reports_tab': 'active'})
+		else:
+			return render(requests, 'report_sales_trends.html', {'error': 'No results found.', 'reports_tab': 'active'})
+	except TopBrandsByCount.DoesNotExist:
+		return render(requests, 'report_sales_trends.html', {'error': 'Oops...Something went wrong with your report.',
+															 'reports_tab': 'active'})
