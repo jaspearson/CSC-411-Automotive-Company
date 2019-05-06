@@ -15,12 +15,13 @@ The following packages are required installs to run this application.
 ## Project Structure
 * SQL Queries - in this folder you will find all the SQL queries needed to create the database and populate it with a seeded dataset.
 * Design Materials - This folder contains the project assignment PDF, the ER Diagram and relational schema.  
-* manage.py - run this file through the IDE. 
 
 # Step 3 
 ## Give my app access to the database. 
 * In the /CSC_411_Automotive_Company/CSC_411_Automotive_Company locate and open the secret_settings.py file. 
 * Update the user and password information to match a user in your SQL database.
+* manage.py - run this file through the IDE. 
+
 
 # Step 4 
 * Navigate to {your IP address}:{Port Number}/auto_admin/. Example: 127.0.0.1:8000/auto_admin/

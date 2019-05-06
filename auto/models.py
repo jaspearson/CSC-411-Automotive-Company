@@ -166,10 +166,13 @@ class State(models.Model):
 
 # Annual Income Model
 class cust_income_range(models.Model):
+	id = models.IntegerField(primary_key=True)
 	range = models.CharField(max_length=50)
 
 	def __str__(self):
 		return self.range
+
+
 
 
 

@@ -154,6 +154,11 @@ def customer_new(requests):
 			gender = form.cleaned_data['gender']
 			annual_income = form.cleaned_data['annual_income']
 
+			# Workaround to get the value of the key.
+			annual_income = cust_income_range.objects.filter(range=annual_income).values_list('id', flat=True)[0]
+
+			print(annual_income)
+
 			# Execute the update Query.
 			with connection.cursor() as cursor:
 				cursor.execute(insert_query_string, [first_name,
