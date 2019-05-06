@@ -98,7 +98,12 @@ def customer_edit(requests, userid):
 			email = form.cleaned_data['email']
 			phone = form.cleaned_data['phone']
 			gender = form.cleaned_data['gender']
-			annual_income = form.cleaned_data['annual_income']
+			annual_income = form.cleaned_data['annual_income[0]']
+
+			# Workaround to get the value of the key.
+			annual_income = cust_income_range.objects.filter(range=annual_income).values_list('id', flat=True)[0]
+
+			print(annual_income)
 
 			# Execute the update Query.
 			with connection.cursor() as cursor:

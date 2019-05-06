@@ -1,7 +1,7 @@
 # CSC-411-Automotive-Company
 Web application for University of Southern Mississippi CSC 411 Databases project.
 
-Youtube video walk-through:
+Youtube video walk-through: https://youtu.be/Eh0WtSQlX3M
 
 # Step 1
 ## Required installs
