@@ -24,22 +24,17 @@ class CustomerEditForm(forms.Form):
 	phone = forms.CharField(label='Phone', max_length=15)
 	gender = forms.CharField(label='Gender', max_length=1)
 	annual_income = forms.ModelChoiceField(label='Annual income', to_field_name="id", queryset=cust_income_range.objects.all(), empty_label='-- None --')
-	#annual_income = forms.IntegerField(label="Annual income")
-"""
-	class Meta:
-		model = Customer
-		fields = ['first_name',
-				  'last_name',
-				  'DOB',
-				  'address1',
-				  'address2',
-				  'city',
-				  'state',
-				  'zip',
-				  'email',
-				  'phone',
-				  'gender',
-				  'annual_income' ]
 
-"""
+	# Returns the cleaned data in the form of list.
+	def get_data_list(self):
+		data_list = []
 
+		for key in self.cleaned_data:
+
+			if hasattr(self.cleaned_data[key], 'pk'):
+				data_list.append(self.cleaned_data[key].pk)
+
+			else:
+				data_list.append(self.cleaned_data[key])
+
+		return data_list

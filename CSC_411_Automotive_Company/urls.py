@@ -25,16 +25,16 @@ urlpatterns = [
     url(r'^auto_admin/$', auto_admin, name="auto_admin"),
 
     # Customer List
-    url(r'^customer_list/$', customer_list, name="customer_list"),
+    url(r'^auto_admin/customer_list/$', customer_list, name="customer_list"),
 
     # Customer Search
-    url(r'^customer_search/$', customer_search, name="customer_search"),
+    url(r'^auto_admin/customer_search/$', customer_search, name="customer_search"),
 
     # Customer Edit
-    path('customer_edit/<int:userid>', customer_edit, name="customer_edit"),
+    path('auto_admin/customer_edit/<int:userid>', customer_edit, name="customer_edit"),
 
     # Customer Create
-    path('customer_edit/new', customer_new, name="customer_new"),
+    path('auto_admin/customer_edit/new', customer_new, name="customer_new"),
 
 	# Dealer List
 	url(r'^dealer_list/$', dealer_list, name="dealer_list"),

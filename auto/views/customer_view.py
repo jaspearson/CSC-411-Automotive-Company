@@ -86,31 +86,18 @@ def customer_edit(requests, userid):
 
 		if form.is_valid():
 
-			# Get the user altered data from the form.
-			first_name = form.cleaned_data['first_name']
-			last_name = form.cleaned_data['last_name']
-			DOB = form.cleaned_data['DOB']
-			address1 = form.cleaned_data['address1']
-			address2 = form.cleaned_data['address2']
-			city = form.cleaned_data['city']
-			state = form.cleaned_data['state']
-			zip = form.cleaned_data['zip']
-			email = form.cleaned_data['email']
-			phone = form.cleaned_data['phone']
-			gender = form.cleaned_data['gender']
-			annual_income = form.cleaned_data['annual_income[0]']
+			# Get the cleaned data from the form.
+			data_list = form.get_data_list()
 
-			# Workaround to get the value of the key.
-			annual_income = cust_income_range.objects.filter(range=annual_income).values_list('id', flat=True)[0]
-
-			print(annual_income)
+			# Append the userid to the data list.
+			data_list.append(userid)
 
 			# Execute the update Query.
 			with connection.cursor() as cursor:
-				cursor.execute(update_query_string, [first_name, last_name, DOB, address1, address2, city, state, zip, email, phone, gender, annual_income, userid])
+				cursor.execute(update_query_string, data_list)
 
 			# Redirect the user to the customer list.
-			return redirect('/customer_list/')
+			return redirect('customer_list')
 
 	else:
 
@@ -145,40 +132,14 @@ def customer_new(requests):
 
 		if form.is_valid():
 
-			# Get the user altered data from the form.
-			first_name = form.cleaned_data['first_name']
-			last_name = form.cleaned_data['last_name']
-			DOB = form.cleaned_data['DOB']
-			address1 = form.cleaned_data['address1']
-			address2 = form.cleaned_data['address2']
-			city = form.cleaned_data['city']
-			state = form.cleaned_data['state']
-			zip = form.cleaned_data['zip']
-			email = form.cleaned_data['email']
-			phone = form.cleaned_data['phone']
-			gender = form.cleaned_data['gender']
-			annual_income = form.cleaned_data['annual_income']
+			# Get the cleaned data from the form.
+			data_list = form.get_data_list()
 
-			# Workaround to get the value of the key.
-			annual_income = cust_income_range.objects.filter(range=annual_income).values_list('id', flat=True)[0]
-
-			print(annual_income)
-
+			print(data_list)
 			# Execute the update Query.
 			with connection.cursor() as cursor:
-				cursor.execute(insert_query_string, [first_name,
-													 last_name,
-													 DOB,
-													 address1,
-													 address2,
-													 city,
-													 state,
-													 zip,
-													 email,
-													 phone,
-													 gender,
-													 annual_income])
-			return redirect('/customer_list/')
+				cursor.execute(insert_query_string, data_list)
+			return redirect('customer_list')
 
 	else:
 		form = CustomerEditForm()
