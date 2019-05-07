@@ -81,7 +81,7 @@ def dealer_new(requests):
 				with connection.cursor() as cursor:
 					cursor.execute(insert_query_string, [name, address1, address2, city, state, zip, phone])
 
-				return redirect('/dealer_list/')
+				return redirect('dealer_list')
 		else:
 			form = DealerForm()
 			return render(requests, 'customer_edit.html', {'form': form, 'dealer': 'active'})
@@ -116,7 +116,7 @@ def dealer_edit(requests, dealer_id):
 					cursor.execute(update_query_string, [name, address1, address2, city, state, zip, phone, dealer_id])
 
 				# Redirect the user to the dealers list.
-				return redirect('/dealer_list/')
+				return redirect('dealer_list')
 
 		else:
 
