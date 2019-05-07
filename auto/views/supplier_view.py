@@ -71,23 +71,11 @@ def supplier_new(requests):
 			if form.is_valid():
 
 				# Get the user altered data from the form.
-				name = form.cleaned_data['name']
-				address1 = form.cleaned_data['address1']
-				address2 = form.cleaned_data['address2']
-				city = form.cleaned_data['city']
-				state = form.cleaned_data['state']
-				zip = form.cleaned_data['zip']
-				phone = form.cleaned_data['phone']
+				data_list = form.get_data_list()
 
 				# Execute the insert query
 				with connection.cursor() as cursor:
-					cursor.execute(insert_query_string, [name,
-														 address1,
-														 address2,
-														 city,
-														 state,
-														 zip,
-														 phone])
+					cursor.execute(insert_query_string, data_list)
 				return redirect('supplier_list')
 		else:
 			form = SupplierForm()
@@ -112,24 +100,14 @@ def supplier_edit(requests, supplier_id):
 			if form.is_valid():
 
 				# Get the user altered data from the form.
-				name = form.cleaned_data['name']
-				address1 = form.cleaned_data['address1']
-				address2 = form.cleaned_data['address2']
-				city = form.cleaned_data['city']
-				state = form.cleaned_data['state']
-				zip = form.cleaned_data['zip']
-				phone = form.cleaned_data['phone']
+				data_list = form.get_data_list()
+
+				# Append the supplier_id to the data list
+				data_list.append(supplier_id)
 
 				# Execute the update query
 				with connection.cursor() as cursor:
-					cursor.execute(update_query_string, [name,
-														 address1,
-														 address2,
-														 city,
-														 state,
-														 zip,
-														 phone,
-														 supplier_id])
+					cursor.execute(update_query_string, data_list)
 
 				# Redirect the user to the supplier list.
 				return redirect('supplier_list')

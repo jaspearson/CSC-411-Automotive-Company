@@ -76,27 +76,11 @@ def model_new(requests):
 			if form.is_valid():
 
 				# Get the user altered data from the form.
-				name = form.cleaned_data['name']
-				base_price = form.cleaned_data['base_price']
-				est_miles_per_gallon = form.cleaned_data['est_miles_per_gallon']
-				body_style = form.cleaned_data['body_style']
-				year = form.cleaned_data['year']
-				color = form.cleaned_data['color']
-				engine = form.cleaned_data['engine']
-				transmission = form.cleaned_data['transmission']
-				brand = form.cleaned_data['brand']
+				data_list = form.get_data_list()
 
 				# Execute the insert query
 				with connection.cursor() as cursor:
-					cursor.execute(insert_query_string, [name,
-														 base_price,
-														 est_miles_per_gallon,
-														 body_style,
-														 year,
-														 color,
-														 engine,
-														 transmission,
-														 brand])
+					cursor.execute(insert_query_string, data_list)
 				return redirect('model_list')
 		else:
 			form = cModelForm()
@@ -122,19 +106,14 @@ def model_edit(requests, model_id):
 			if form.is_valid():
 
 				# Get the user altered data from the form.
-				name = form.cleaned_data['name']
-				base_price = form.cleaned_data['base_price']
-				est_miles_per_gallon = form.cleaned_data['est_miles_per_gallon']
-				body_style = form.cleaned_data['body_style']
-				year = form.cleaned_data['year']
-				color = form.cleaned_data['color']
-				engine = form.cleaned_data['engine']
-				transmission = form.cleaned_data['transmission']
-				brand = form.cleaned_data['brand']
+				data_list = form.get_data_list()
+
+				# Append the model_id to the end of the data list.
+				data_list.append(model_id)
 
 				# Execute the update query
 				with connection.cursor() as cursor:
-					cursor.execute(update_query_string, [name, base_price, est_miles_per_gallon, body_style, year, color, engine, transmission, brand, model_id])
+					cursor.execute(update_query_string, data_list)
 
 				# Redirect the user to the models list.
 				return redirect('model_list')

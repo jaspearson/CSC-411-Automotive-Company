@@ -1,8 +1,8 @@
-from django import forms
+from .custom_form import *
 from auto.models import State
 
 
-class DealerForm(forms.Form):
+class DealerForm(CustomForm):
 
 	name = forms.CharField(label='Name', max_length=100)
 	address1 = forms.CharField(label='Address 1', max_length=100)

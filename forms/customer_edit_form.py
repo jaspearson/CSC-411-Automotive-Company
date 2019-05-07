@@ -1,12 +1,13 @@
 from django import forms
 from auto.models import *
-from auto.models import Customer
+from .custom_form import *
 import datetime
 
 # Used to specify the range of years that appears in the Date of birth field.
 YEARS = [x for x in range(1919, 2020)]
 #forms.ModelForm
-class CustomerEditForm(forms.Form):
+
+class CustomerEditForm(CustomForm):
 
 
 	first_name = forms.CharField(label='First name', max_length=100)
@@ -25,16 +26,3 @@ class CustomerEditForm(forms.Form):
 	gender = forms.CharField(label='Gender', max_length=1)
 	annual_income = forms.ModelChoiceField(label='Annual income', to_field_name="id", queryset=cust_income_range.objects.all(), empty_label='-- None --')
 
-	# Returns the cleaned data in the form of list.
-	def get_data_list(self):
-		data_list = []
-
-		for key in self.cleaned_data:
-
-			if hasattr(self.cleaned_data[key], 'pk'):
-				data_list.append(self.cleaned_data[key].pk)
-
-			else:
-				data_list.append(self.cleaned_data[key])
-
-		return data_list

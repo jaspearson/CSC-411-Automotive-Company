@@ -1,8 +1,8 @@
-from django import forms
+from .custom_form import *
 from auto.models import State
 
 
-class ManufacturerForm(forms.Form):
+class ManufacturerForm(CustomForm):
 	name = forms.CharField(max_length=100)
 	address1 = forms.CharField(max_length=100)
 	address2 = forms.CharField(max_length=100, required=False)

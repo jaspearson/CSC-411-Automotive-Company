@@ -1,6 +1,6 @@
-from django import forms
+from .custom_form import *
 
-class cModelForm(forms.Form):
+class cModelForm(CustomForm):
 	name = forms.CharField(max_length=100)
 	base_price = forms.DecimalField(max_digits=10, decimal_places=2)
 	est_miles_per_gallon = forms.IntegerField()
