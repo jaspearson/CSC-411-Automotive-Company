@@ -97,7 +97,7 @@ def model_new(requests):
 														 engine,
 														 transmission,
 														 brand])
-				return redirect('/model_list/')
+				return redirect('model_list')
 		else:
 			form = cModelForm()
 			return render(requests, 'model_edit.html', {'form': form, 'cmodel': 'active'})
@@ -137,7 +137,7 @@ def model_edit(requests, model_id):
 					cursor.execute(update_query_string, [name, base_price, est_miles_per_gallon, body_style, year, color, engine, transmission, brand, model_id])
 
 				# Redirect the user to the models list.
-				return redirect('/model_list')
+				return redirect('model_list')
 
 		else:
 

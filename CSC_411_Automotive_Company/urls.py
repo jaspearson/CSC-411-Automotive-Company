@@ -49,16 +49,16 @@ urlpatterns = [
 	path('auto_admin/dealer_edit/new', dealer_new, name="dealer_new"),
 
 	# Model List
-	url(r'^model_list/$', model_list, name="model_list"),
+	url(r'^auto_admin/model_list/$', model_list, name="model_list"),
 
 	# Model Search
-	url(r'^model_search/$', model_search, name="model_search"),
+	url(r'^auto_admin/model_search/$', model_search, name="model_search"),
 
 	# Model Edit
-	path('model_edit/<int:model_id>', model_edit, name="model_edit"),
+	path('auto_admin/model_edit/<int:model_id>', model_edit, name="model_edit"),
 
 	# Model Create
-	path('model_edit/new', model_new, name="model_new"),
+	path('auto_admin/model_edit/new', model_new, name="model_new"),
 
 
 	# Supplier List
