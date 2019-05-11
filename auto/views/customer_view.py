@@ -7,8 +7,6 @@ from .views import error
 from django.db import connection
 
 
-
-
 def customer_list(requests):
 
 	try:
@@ -76,12 +74,14 @@ def customer_search(requests):
 # jaspearson
 def customer_edit(requests, userid):
 	select_query_string = "SELECT * from auto_customer WHERE id = %s"
-	update_query_string = "Update auto_customer SET first_name = %s, last_name = %s, DOB = %s, address1 = %s, address2 =%s," \
-						  " city = %s, state = %s, zip = %s, email = %s, phone = %s, gender = %s, annual_income = %s " \
-						  "WHERE id = %s"
+	update_query_string1 = "Update auto_customer SET first_name = %s, last_name = %s, DOB = %s, address1 = %s, address2 =%s," \
+						  " city = %s, state = %s, zip = %s, email = %s, phone = %s, gender = %s, annual_income = %s, image =%s WHERE id = %s"
+
+	update_query_string2 = "Update auto_customer SET first_name = %s, last_name = %s, DOB = %s, address1 = %s, address2 =%s," \
+						   " city = %s, state = %s, zip = %s, email = %s, phone = %s, gender = %s, annual_income = %s WHERE id = %s"
 
 	if requests.method == 'POST':
-		form = CustomerEditForm(requests.POST)
+		form = CustomerEditForm(requests.POST, requests.FILES)
 		print("customer_edit: I got this far...editing an existing customer")
 
 		if form.is_valid():
@@ -89,12 +89,23 @@ def customer_edit(requests, userid):
 			# Get the cleaned data from the form.
 			data_list = form.get_data_list()
 
+			if form.files.get('image') is not None:
+				path = form.save_image(form.files.get('image'))
+				print("I got to path: %s" % path)
+				data_list.pop()
+				data_list.append(path)
+				print(path)
+				query = update_query_string1
+			else:
+				data_list.pop()
+				query = update_query_string2
+
 			# Append the userid to the data list.
 			data_list.append(userid)
 
 			# Execute the update Query.
 			with connection.cursor() as cursor:
-				cursor.execute(update_query_string, data_list)
+				cursor.execute(query, data_list)
 
 			# Redirect the user to the customer list.
 			return redirect('customer_list')
@@ -104,9 +115,6 @@ def customer_edit(requests, userid):
 		# Retrieve from the database using SQL
 		customer = Customer.objects.raw(select_query_string, [userid])
 
-		# Retrieve from database using models.
-		# customer = Customer.objects.filter(id=userid).defer("updated", "DOB").values()
-
 		# Convert the raw query set to a dictionary object.
 		customer = [dict(c.__dict__) for c in customer]
 
@@ -114,20 +122,26 @@ def customer_edit(requests, userid):
 		print(customer[0])
 
 		# Bind the form to the data
-		form = CustomerEditForm(customer[0])
+		if customer[0]['image'] is not None:
+
+			requests.FILES['image'] = Customer.objects.get(id=userid).image
+
+			print(requests.FILES)
+
+		form = CustomerEditForm(customer[0], requests.FILES)
 
 		# Render the data on the form.
-		return render(requests, 'customer_edit.html', {'form': form})
+		return render(requests, 'customer_edit.html', {'form': form, 'customer_list:': 'active'})
 
 # Used to edit create new customers.
 # jaspearson
 def customer_new(requests):
 	insert_query_string = 'INSERT INTO auto_customer (first_name, last_name, DOB, address1, address2, city, state, zip,' \
-						  ' email, phone, gender, annual_income) ' \
-						  'VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+						  ' email, phone, gender, annual_income, image) ' \
+						  'VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
 
 	if requests.method == 'POST':
-		form = CustomerEditForm(requests.POST)
+		form = CustomerEditForm(requests.POST, requests.FILES)
 		print("customer_edit: I got this far...creating a new customer.")
 
 		if form.is_valid():
@@ -135,7 +149,11 @@ def customer_new(requests):
 			# Get the cleaned data from the form.
 			data_list = form.get_data_list()
 
-			print(data_list)
+			if form.files.get('image') is not None:
+				path = form.save_image(form.files.get('image'))
+				data_list.pop()
+				data_list.append(path)
+
 			# Execute the update Query.
 			with connection.cursor() as cursor:
 				cursor.execute(insert_query_string, data_list)

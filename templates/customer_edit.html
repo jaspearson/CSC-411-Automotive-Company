@@ -4,7 +4,7 @@
 
     <br/>
     <div class="d-flex justify-content-center">
-        <form method="POST">
+        <form enctype="multipart/form-data" method="POST">
             {% csrf_token %}
 
             <!--The Django Rendered form will appear here. -->
@@ -14,7 +14,7 @@
 
             <!--Submit button-->
             <div class="d-flex justify-content-center">
-                <input type="submit" value="Submit">
+                <input type="submit" class="btn btn-dark" value="Submit">
             </div>
 
         </form>

@@ -46,7 +46,11 @@
                              <!--Display profile image -->
                              <!--silhouette for now -->
                              <div class="profile-image-wrapper text-center">
-                                <img class="card-img-top img-fluid p-1" src="{% static '/images/silhouette-unisex.png' %}" alt="profile image" style="max-height: 100px; max-width: 100px;">
+                                 {% if customer.image == null %}
+                                    <img class="card-img-top img-fluid p-1" src="{% static '/images/silhouette-unisex.png' %}" alt="profile image" style="max-height: 100px; max-width: 100px;">
+                                 {% else %}
+                                    <img class="card-img-top img-fluid p-1" src="{{ customer.image.url }}" alt="profile image" style="max-height: 100px; max-width: 100px;">
+                                 {% endif %}
                              </div>
 
                              <!-- Display full name -->

@@ -1,14 +1,14 @@
-from django import forms
 from auto.models import *
 from .custom_form import *
 import datetime
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 
 # Used to specify the range of years that appears in the Date of birth field.
 YEARS = [x for x in range(1919, 2020)]
-#forms.ModelForm
+
 
 class CustomerEditForm(CustomForm):
-
 
 	first_name = forms.CharField(label='First name', max_length=100)
 	last_name = forms.CharField(label='Last name', max_length=100)
@@ -25,4 +25,10 @@ class CustomerEditForm(CustomForm):
 	phone = forms.CharField(label='Phone', max_length=15)
 	gender = forms.CharField(label='Gender', max_length=1)
 	annual_income = forms.ModelChoiceField(label='Annual income', to_field_name="id", queryset=cust_income_range.objects.all(), empty_label='-- None --')
+	image = forms.ImageField(required=False)
 
+
+	#files = {'image': SimpleUploadedFile('cust_profile_image.png', image.read())}
+
+	def save_image(self, file):
+		return default_storage.save(file.name, ContentFile(file.read()))
